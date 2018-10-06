@@ -11,15 +11,19 @@ namespace App\Entity;
 use Doctrine\Common\Collections\ArrayCollection;
 use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
+use Doctrine\ORM\Mapping\UniqueConstraint;
 
 /**
  * @ORM\Table(
  *     name="currency",
- *     indexes={
- *          @ORM\Index(name="currency_code", columns={"iso_code"})
+ *     uniqueConstraints={
+ *          @UniqueConstraint(
+ *              name="currency_iso_code",
+ *              columns={"iso_code"},
+ *          )
  *     }
  * )
- * @ORM\Entity()
+ * @ORM\Entity(repositoryClass="App\Repository\CurrencyRepository")
  * Class Currency
  * @package App\Entity
  */
@@ -136,7 +140,7 @@ class Currency
     /**
      * @param string $symbol
      */
-    public function setSymbol(string $symbol): void
+    public function setSymbol(string $symbol = null): void
     {
         $this->symbol = $symbol;
     }

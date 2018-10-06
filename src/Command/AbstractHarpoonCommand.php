@@ -12,10 +12,15 @@ namespace App\Command;
 use Symfony\Bundle\FrameworkBundle\Command\ContainerAwareCommand;
 use Symfony\Component\Console\Input\InputInterface;
 use Symfony\Component\Console\Output\OutputInterface;
+use Symfony\Component\Console\Style\SymfonyStyle;
 
 abstract class AbstractHarpoonCommand extends ContainerAwareCommand
 {
-    protected function execute(InputInterface $input, OutputInterface $output){
 
+    /** @var SymfonyStyle $symfonyConsole */
+    protected $symfonyConsole;
+
+    protected function execute(InputInterface $input, OutputInterface $output){
+        $this->symfonyConsole = new SymfonyStyle($input, $output);
     }
 }
