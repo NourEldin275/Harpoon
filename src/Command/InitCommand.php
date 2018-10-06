@@ -63,12 +63,11 @@ class InitCommand extends AbstractHarpoonCommand
         $createdCurrencies = 0;
         $progressBar = $this->symfonyConsole->createProgressBar(count($currencies));
         $progressBar->start();
-        foreach ($currencies as $ISOCode => $currency){
-            if(
-                !$this->currencyRepo->findOneBy(["isoCode" => $ISOCode]) instanceof Currency
-            ){
-                $symbol = isset($currency["symbol"]) ? $currency["symbol"] : null;
-                $currency = $this->createCurrency($ISOCode, $currency["name"], $symbol);
+        foreach ($currencies as $ISOCode => $currencySettings){
+            $currency = $this->currencyRepo->findOneBy(["isoCode" => $ISOCode]);
+            if(!$currency instanceof Currency){
+                $symbol = isset($currencySettings["symbol"]) ? $currencySettings["symbol"] : null;
+                $currency = $this->createCurrency($ISOCode, $currencySettings["name"], $symbol);
                 $this->entityManager->persist($currency);
                 $createdCurrencies++;
             }
