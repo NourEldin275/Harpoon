@@ -6,12 +6,12 @@
  * Time: 6:00 PM
  */
 
-namespace App\Service;
+namespace App\Service\ExternalRatesAPIService;
 
 
-use App\Service\Interfaces\CurrencyExchangeServiceInterface;
+use App\Service\ExternalRatesAPIService\Interfaces\CurrencyExchangeServiceInterface;
 
-class ExchangeRatesAPIService implements CurrencyExchangeServiceInterface
+class ExchangeRatesApiIOService implements CurrencyExchangeServiceInterface
 {
 
     /**

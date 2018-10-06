@@ -6,7 +6,7 @@
  * Time: 10:07 AM
  */
 
-namespace App\Service\Interfaces;
+namespace App\Service\ExternalRatesAPIService\Interfaces;
 
 /**
  * A common interface for all Exchange API to implement.
