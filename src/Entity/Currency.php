@@ -8,13 +8,15 @@
 
 namespace App\Entity;
 
+use Doctrine\Common\Collections\ArrayCollection;
+use Doctrine\Common\Collections\Collection;
 use Doctrine\ORM\Mapping as ORM;
 
 /**
  * @ORM\Table(
  *     name="currency",
  *     indexes={
-            @ORM\Index(name="currency_code", columns={"iso_code"})
+ *          @ORM\Index(name="currency_code", columns={"iso_code"})
  *     }
  * )
  * @ORM\Entity()
@@ -52,6 +54,28 @@ class Currency
      * @var string $symbol
      */
     protected $symbol;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CurrencyExchange", mappedBy="from")
+     * @var Collection $baseExchanges
+     */
+    protected $baseExchanges;
+
+
+    /**
+     * @ORM\OneToMany(targetEntity="App\Entity\CurrencyExchange", mappedBy="to")
+     * @var Collection $toExchanges
+     */
+    protected $toExchanges;
+
+
+
+    public function __construct()
+    {
+        $this->toExchanges   = new ArrayCollection();
+        $this->baseExchanges = new ArrayCollection();
+    }
 
     /**
      * @return int
@@ -115,6 +139,38 @@ class Currency
     public function setSymbol(string $symbol): void
     {
         $this->symbol = $symbol;
+    }
+
+    /**
+     * @return CurrencyExchange[]|Collection
+     */
+    public function getBaseExchanges(): Collection
+    {
+        return $this->baseExchanges;
+    }
+
+    /**
+     * @param Collection $baseExchanges
+     */
+    public function setBaseExchanges(Collection $baseExchanges): void
+    {
+        $this->baseExchanges = $baseExchanges;
+    }
+
+    /**
+     * @return CurrencyExchange[]|Collection
+     */
+    public function getToExchanges(): Collection
+    {
+        return $this->toExchanges;
+    }
+
+    /**
+     * @param Collection $toExchanges
+     */
+    public function setToExchanges(Collection $toExchanges): void
+    {
+        $this->toExchanges = $toExchanges;
     }
 
 
